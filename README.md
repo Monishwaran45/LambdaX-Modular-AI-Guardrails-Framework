@@ -98,6 +98,6 @@ MIT License © 2026 LambdaX Authors
 This repository represents the **concept and design** for the upcoming **LambdaX AI Guardrails Framework**.  
 Contributions, feedback, and ideas are welcome through Issues or Discussions.
 
-monish
+Monish,Vishal
 
 ---
