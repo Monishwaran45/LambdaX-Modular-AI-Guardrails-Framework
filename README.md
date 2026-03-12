@@ -187,7 +187,9 @@ Request blocked due to prompt injection attempt.
 ### Phase 3
 
 * Hallucination detection
+* Bias detection
 * RAG guardrails
+* Compliance guards
 * AI agent safety layer
 
 ### Phase 4
@@ -216,11 +218,11 @@ Request blocked due to prompt injection attempt.
 - ✅ Prometheus metrics
 - ✅ Docker deployment
 
-**Coming Soon (Phase 3):**
-- 🔄 Hallucination detection
-- 🔄 Bias detection
-- 🔄 RAG guardrails
-- 🔄 Compliance guards
+**Phase 3 (Available via policy configuration):**
+- ✅ Hallucination detection
+- ✅ Bias detection
+- ✅ RAG guardrails
+- ✅ Compliance guards
 
 ---
 

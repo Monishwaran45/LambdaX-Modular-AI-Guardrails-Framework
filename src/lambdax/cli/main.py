@@ -48,15 +48,28 @@ def inspect(text: str, policy: str, direction: str, policy_file: str):
 
         # Register guards
         from lambdax.guards import (
-            InputSanitizerGuard,
+            AgentSafetyGuard,
+            BiasGuard,
+            ComplianceGuard,
             FormatValidatorGuard,
+            HallucinationGuard,
+            InputSanitizerGuard,
+            RagGuardrailsGuard,
         )
 
+        # Core Phase 1 / 2 guards
         policy_engine.register_guard("prompt_injection", PromptInjectionGuard)
         policy_engine.register_guard("toxicity", ToxicityGuard)
         policy_engine.register_guard("privacy", PrivacyGuard)
         policy_engine.register_guard("input_sanitizer", InputSanitizerGuard)
         policy_engine.register_guard("format_validator", FormatValidatorGuard)
+
+        # Phase 3 guards (available via policy configuration)
+        policy_engine.register_guard("hallucination", HallucinationGuard)
+        policy_engine.register_guard("bias", BiasGuard)
+        policy_engine.register_guard("rag_guardrails", RagGuardrailsGuard)
+        policy_engine.register_guard("compliance", ComplianceGuard)
+        policy_engine.register_guard("agent_safety", AgentSafetyGuard)
 
         # Initialize orchestrator
         orchestrator = Orchestrator(policy_engine)
