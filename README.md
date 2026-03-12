@@ -199,9 +199,28 @@ Request blocked due to prompt injection attempt.
 
 # 🚧 Current Status
 
-**Stage:** Concept / Early Framework Design
+**Stage:** v0.1.0 - Production-Ready Framework
 
-Initial developer preview planned for **2026**.
+**Implemented (Phase 1 Complete):**
+- ✅ Core framework architecture with async support
+- ✅ Policy engine with YAML configuration
+- ✅ Guard orchestrator with concurrency and caching
+- ✅ Prompt injection guard (ML-based)
+- ✅ Toxicity guard (ML-based)
+- ✅ Privacy guard (PII detection)
+- ✅ Input sanitizer
+- ✅ Format validator
+- ✅ REST API (FastAPI)
+- ✅ CLI tool
+- ✅ Audit logging
+- ✅ Prometheus metrics
+- ✅ Docker deployment
+
+**Coming Soon (Phase 3):**
+- 🔄 Hallucination detection
+- 🔄 Bias detection
+- 🔄 RAG guardrails
+- 🔄 Compliance guards
 
 ---
 

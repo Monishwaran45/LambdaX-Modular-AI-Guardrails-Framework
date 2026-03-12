@@ -1,0 +1,68 @@
+version: 1
+policies:
+  - id: default
+    description: "Default policy for general use"
+    input_guards:
+      - name: input_sanitizer
+        enabled: true
+        config:
+          remove_control_chars: true
+          remove_unicode_tricks: true
+          block_system_prompts: true
+          fail_open: false
+      - name: prompt_injection
+        enabled: true
+        config:
+          threshold: 0.8
+          model: "protectai/deberta-v3-base-prompt-injection"
+          fail_open: false
+      - name: privacy
+        enabled: true
+        config:
+          pii_types: ["EMAIL", "PHONE", "SSN", "CREDIT_CARD"]
+          fail_open: false
+    output_guards:
+      - name: toxicity
+        enabled: true
+        config:
+          threshold: 0.7
+          model: "unitary/toxic-bert"
+          fail_open: false
+      - name: privacy
+        enabled: true
+        config:
+          pii_types: ["EMAIL", "PHONE", "SSN"]
+          fail_open: false
+      - name: format_validator
+        enabled: false
+        config:
+          format: "json"
+          strict: true
+          fail_open: false
+    fallback_action: "block"
+
+  - id: strict
+    description: "Strict policy with lower thresholds"
+    input_guards:
+      - name: prompt_injection
+        enabled: true
+        config:
+          threshold: 0.6
+          fail_open: false
+      - name: privacy
+        enabled: true
+        config:
+          pii_types: ["EMAIL", "PHONE", "SSN", "CREDIT_CARD", "IP_ADDRESS"]
+          fail_open: false
+    output_guards:
+      - name: toxicity
+        enabled: true
+        config:
+          threshold: 0.5
+          fail_open: false
+      - name: privacy
+        enabled: true
+        config:
+          pii_types: ["EMAIL", "PHONE", "SSN", "CREDIT_CARD"]
+          fail_open: false
+    fallback_action: "block"
