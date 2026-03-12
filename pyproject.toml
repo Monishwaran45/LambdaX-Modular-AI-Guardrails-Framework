@@ -1,0 +1,79 @@
+[project]
+name = "lambdax"
+version = "0.1.0"
+description = "Production-ready AI guardrails framework for LLM applications"
+authors = [{name = "LambdaX Team"}]
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+keywords = ["ai", "guardrails", "llm", "safety", "security"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "pydantic>=2.5.0",
+    "pyyaml>=6.0",
+    "cachetools>=5.3.0",
+    "python-json-logger>=2.0.7",
+    "prometheus-client>=0.19.0",
+    "opentelemetry-api>=1.21.0",
+    "opentelemetry-sdk>=1.21.0",
+    "opentelemetry-instrumentation-fastapi>=0.42b0",
+    "transformers>=4.35.0",
+    "torch>=2.1.0",
+    "aiohttp>=3.9.0",
+    "click>=8.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.11.0",
+    "isort>=5.12.0",
+    "flake8>=6.1.0",
+    "mypy>=1.7.0",
+    "pre-commit>=3.5.0",
+]
+
+[project.scripts]
+lambdax = "lambdax.cli.main:cli"
+
+[project.entry-points."lambdax.guards"]
+prompt_injection = "lambdax.guards.prompt_injection:PromptInjectionGuard"
+toxicity = "lambdax.guards.toxicity:ToxicityGuard"
+privacy = "lambdax.guards.privacy:PrivacyGuard"
+input_sanitizer = "lambdax.guards.input_sanitizer:InputSanitizerGuard"
+format_validator = "lambdax.guards.format_validator:FormatValidatorGuard"
+
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 100
+target-version = ['py310']
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
