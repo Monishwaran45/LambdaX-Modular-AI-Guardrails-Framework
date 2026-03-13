@@ -21,6 +21,33 @@ policies:
         config:
           pii_types: ["EMAIL", "PHONE", "SSN", "CREDIT_CARD"]
           fail_open: false
+      # Phase 3 guards (available but disabled by default)
+      - name: hallucination
+        enabled: false
+        config:
+          require_citations: true
+          block_speculation: false
+          fail_open: false
+      - name: bias
+        enabled: false
+        config:
+          fail_open: false
+      - name: rag_guardrails
+        enabled: false
+        config:
+          min_answer_chars: 32
+          require_citations: true
+          fail_open: false
+      - name: compliance
+        enabled: false
+        config:
+          case_sensitive: false
+          fail_open: false
+      - name: agent_safety
+        enabled: false
+        config:
+          block_secrets_exfil: true
+          fail_open: false
     output_guards:
       - name: toxicity
         enabled: true

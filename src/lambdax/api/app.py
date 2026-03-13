@@ -30,18 +30,31 @@ async def lifespan(app: FastAPI) -> AsyncGenerator:
 
     # Register guards
     from lambdax.guards import (
-        PromptInjectionGuard,
-        ToxicityGuard,
-        PrivacyGuard,
-        InputSanitizerGuard,
+        AgentSafetyGuard,
+        BiasGuard,
+        ComplianceGuard,
         FormatValidatorGuard,
+        HallucinationGuard,
+        InputSanitizerGuard,
+        PrivacyGuard,
+        PromptInjectionGuard,
+        RagGuardrailsGuard,
+        ToxicityGuard,
     )
 
+    # Core Phase 1 / 2 guards
     policy_engine.register_guard("prompt_injection", PromptInjectionGuard)
     policy_engine.register_guard("toxicity", ToxicityGuard)
     policy_engine.register_guard("privacy", PrivacyGuard)
     policy_engine.register_guard("input_sanitizer", InputSanitizerGuard)
     policy_engine.register_guard("format_validator", FormatValidatorGuard)
+
+    # Phase 3 guards (available via policy configuration)
+    policy_engine.register_guard("hallucination", HallucinationGuard)
+    policy_engine.register_guard("bias", BiasGuard)
+    policy_engine.register_guard("rag_guardrails", RagGuardrailsGuard)
+    policy_engine.register_guard("compliance", ComplianceGuard)
+    policy_engine.register_guard("agent_safety", AgentSafetyGuard)
 
     # Initialize orchestrator
     orchestrator = Orchestrator(policy_engine)
